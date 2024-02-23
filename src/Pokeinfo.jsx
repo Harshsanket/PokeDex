@@ -1,6 +1,9 @@
 import React from "react";
+
 function Pokeinfo() {
-  async function fetchData() {
+  async function fetchData(event) {
+    event.preventDefault(); // Prevent default form submission behavior
+    
     try {
       const pokemonName = document
         .getElementById("pokemonName")
@@ -20,8 +23,6 @@ function Pokeinfo() {
       const pokemons5 = data.sprites.front_female;
       const pokemons6 = data.sprites.back_female;
 
-
-
       const pokemonspeciesname = data.species.name;
       const weight = data.weight;
       const attackTypes = data.types.map(type => type.type.name);
@@ -32,7 +33,7 @@ function Pokeinfo() {
       spnames.innerHTML = `
   <ul>
     <li>${pokemonspeciesname} is an ${attackTypes.join(", ")} species of Pokémon.</li>
-    <li>Height: ${height} metes</li>
+    <li>Height: ${height} meters</li>
     <li>Weight: ${weight} hectograms.</li>
     <li>Abilities: ${abilities.join(", ")}.</li>
     <li>Attack Types: ${attackTypes.join(", ")}.</li>
@@ -55,26 +56,19 @@ function Pokeinfo() {
       const imgElement4 = document.getElementById("pokemon4");
       imgElement4.src = pokemons4;
 
-
       const imgElement5 = document.getElementById("pokemon5");
       imgElement5.src = pokemons5;
 
       const imgElement6 = document.getElementById("pokemon6");
       imgElement6.src = pokemons6;
-
-
-
-
-
     } catch (error) {
       console.log(error);
     }
   }
   
-
   return (
     <div>
-      <form class="container-fluid">
+      <form class="container-fluid" onSubmit={fetchData}>
         <div class="input-group ">
           <input
             type="text"
@@ -87,7 +81,6 @@ function Pokeinfo() {
           <button
             class="btn btn-outline-success"
             type="submit"
-            onClick={fetchData}
           >
             Search
           </button>
